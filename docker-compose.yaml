@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+    vlmap:
+        container_name: vlmap_docker
+        build: 
+            context: .
+        image: vlmap-docker
+        network_mode: "host"
+        restart: unless-stopped                 # Restart the container unless manually stopped
+        volumes:
+          - /tmp/.X11-unix:/tmp/.X11-unix:rw    # GUI related
+          - type: bind                          # Mount Persistent Directory   
+            source: ./shared_folder
+            target: /app/shared
+          - type: bind                          # Mount Persistent Directory   
+            source: ../turtlebot_docker/Noetic_env/turtlebot_docker_shared/
+            target: /app/image
+          - type: bind                          # Mount Persistent Directory   
+            source: ../turtlebot_docker/Iron/turtlebot_docker_shared/
+            target: /app/iron  
+        environment:
+            - PYTHONUNBUFFERED=1
+            - DISPLAY                           # GUI related
+            - QT_X11_NO_MITSHM=1                # GUI related            
+
+        privileged: true                        # GUI related                       
+
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t

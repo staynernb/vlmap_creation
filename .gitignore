@@ -1,0 +1,10 @@
+# ignore ALL files in the shared folder
+shared_folder/* 
+
+# Keep the folder
+!shared_folder/zero_shot.py
+!shared_folder/depth2pc.py
+!shared_folder/copy_drive.py
+# Keep the folder
+!shared_folder/image/
+!shared_folder/image/.gitkeep
